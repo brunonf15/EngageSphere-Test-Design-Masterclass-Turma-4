@@ -1,3 +1,5 @@
+import '../support/commands'
+
 describe('EngageSphere - Customer List UI', () => {
   beforeEach(() => {
     cy.setCookie('cookieConsent', 'accepted');
@@ -64,17 +66,20 @@ describe('EngageSphere - Customer List UI', () => {
 
   it('Exibe o cabeçalho com um título, alternador de tema e um campo de entrada de texto', () => {
     cy.contains('h1', 'EngageSphere').should('be.visible');
-    cy.get('[class^="ThemeToggle_button"]').should('be.visible');
+    cy.getByClassThatStartsWith('ThemeToggle_button').should('be.visible');
     cy.get('[data-testid="name"]').should('be.visible');
   });
 
   it('Abre e fecha o messenger', () => {
-    cy.get('[class^="Messenger_openCloseButton"]').click();
-    cy.get('#messenger-name').should('have.attr', 'required');
+    cy.getByClassThatStartsWith('Messenger_openCloseButton').click();
+    cy.get('#messenger-name').should('be.visible');
+    cy.getByClassThatStartsWith('Messenger_openCloseButton').click();
+    cy.get('#messenger-name').should('not.exist');
   });
 
   it('Garante que todos os campos do messenger são obrigatórios e que o primeiro está focado', () => {
-    cy.get('[class^="Messenger_openCloseButton"]').click();
+    cy.getByClassThatStartsWith('Messenger_openCloseButton').click();
+    
     cy.get('#messenger-name').should('be.focused');
     cy.get('#messenger-name').should('have.attr', 'required');
     cy.get('#email').should('have.attr', 'required');
@@ -83,27 +88,30 @@ describe('EngageSphere - Customer List UI', () => {
 
   it('Mostra e oculta uma mensagem de sucesso ao enviar o formulário do messenger com sucesso', () => {
     cy.clock();
-    cy.get('[class^="Messenger_openCloseButton"]').click();
+    cy.getByClassThatStartsWith('Messenger_openCloseButton').click();
     cy.get('#messenger-name').should('be.visible');
+    
     cy.get('#messenger-name').type('John Doe');
     cy.get('#email').type('john.doe@example.com');
     cy.get('#message').type('Hello, I need support!');
-    cy.get('[class^="Messenger_sendButton"]').click();
-    cy.get('[class^="Messenger_success"]')
+    cy.getByClassThatStartsWith('Messenger_sendButton').click();
+
+    cy.getByClassThatStartsWith('Messenger_success')
       .should('be.visible')
       .and('contain', 'Your message has been sent.');
     cy.tick(3000);
-    cy.get('[class^="Messenger_success"]').should('not.exist');
+    cy.getByClassThatStartsWith('Messenger_success').should('not.exist');
   });
 
   it('Limpa todos os campos do formulário do messenger ao preenchê-los, fechar o messenger e abri-lo novamente', () => {
-    cy.get('[class^="Messenger_openCloseButton"]').click();
+    cy.getByClassThatStartsWith('Messenger_openCloseButton').click();
     cy.get('#messenger-name').should('be.visible');
     cy.get('#messenger-name').type('John Doe');
     cy.get('#email').type('john.doe@example.com');
     cy.get('#message').type('Hello, I need support!');
-    cy.get('[class^="Messenger_openCloseButton"]').click();
-    cy.get('[class^="Messenger_openCloseButton"]').click();
+    cy.getByClassThatStartsWith('Messenger_openCloseButton').click();
+    cy.getByClassThatStartsWith('Messenger_openCloseButton').click();
+
     cy.get('#messenger-name').should('have.value', '');
     cy.get('#email').should('have.value', '');
     cy.get('#message').should('have.value', '');
@@ -111,6 +119,7 @@ describe('EngageSphere - Customer List UI', () => {
 
   it('Mostra as colunas Nome da Empresa e Ação, e oculta as colunas ID, Indústria, Número de Funcionários e Tamanho em um viewport móvel', () => {
     cy.viewport(375, 667);
+    
     cy.get('[data-testid="table"]').should('be.visible');
     cy.contains('th', 'Company name').should('be.visible');
     cy.contains('th', 'Action').should('be.visible');
