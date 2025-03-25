@@ -1,8 +1,7 @@
 describe('EngageSphere - Customer Management UI', () => {
   beforeEach(() => {
+    cy.setCookie('cookieConsent', 'accepted')
     cy.visit('/');
-    //cy.setCookie('cookieConsent', 'accepted')
-    cy.contains('button', 'Accep').click();
   });
 
   it('Maintains selected filter after returning from customer details', () => {
