@@ -30,18 +30,9 @@ This project includes end-to-end tests using Cypress, separated into API and GUI
 
 ### Installing Cypress
 
-1. Ensure you have `Node.js` and `npm` installed as per the pre-requirements above.
-2. Navigate to the root directory of your project.
-3. Install Cypress as a development dependency by running:
-
+1. Install Cypress as a development dependency by running:
 ```bash
-npm install cypress --save-dev
-```
-
-4. Verify that Cypress has been installed by running:
-
-```bash
-npx cypress verify
+npm install 
 ```
 
 
@@ -49,8 +40,8 @@ npx cypress verify
 
 The test files are organized as follows:
 
-- **API Tests**: Located in `cypress/e2e/api/engageAPI.cy.js`.
-- **GUI Tests**: Located in `cypress/e2e/e2e/engageGUI.cy.js`.
+- **API Tests**: Located in `cypress/e2e/api/engageSphere.cy.js`.
+- **GUI Tests**: Located in `cypress/e2e/gui/engageSphere.cy.js`.
 
 
 ### Running Tests
@@ -64,14 +55,15 @@ To run all tests (both API and GUI):
 - **Interactive Mode**: Launch Cypress Test Runner with:
 
 ```bash
-npx cypress open
+npm run cy:open
 ```
 
 Select either individual test files or all available tests from the runner interface.
+
 - **Headless Mode**: Run all tests without opening the graphical interface using:
 
 ```bash
-npx cypress run
+npm test
 ```
 
 
@@ -82,14 +74,15 @@ To run only the API tests:
 - **Interactive Mode**: Open Cypress Test Runner:
 
 ```bash
-npx cypress open
+npm run cy:open
 ```
 
 Then select `cypress/e2e/api/engageAPI.cy.js`.
+
 - **Headless Mode**: Run only this specific test file:
 
 ```bash
-npx cypress run --spec "cypress/e2e/api/engageAPI.cy.js"
+npm run test:api
 ```
 
 
@@ -100,14 +93,15 @@ To run only the GUI tests:
 - **Interactive Mode**: Open Cypress Test Runner:
 
 ```bash
-npx cypress open
+npm run cy:open
 ```
 
 Then select `cypress/e2e/e2e/engageGUI.cy.js`.
+
 - **Headless Mode**: Run only this specific test file:
 
 ```bash
-npx cypress run --spec "cypress/e2e/e2e/engageGUI.cy.js"
+npm run test:gui
 ```
 
 
@@ -116,24 +110,18 @@ npx cypress run --spec "cypress/e2e/e2e/engageGUI.cy.js"
 - Run tests in a specific browser (e.g., Chrome):
 
 ```bash
-npx cypress run --browser chrome
+npm test --browser chrome
 ```
 
 - Run tests in headed mode (with browser UI visible):
 
 ```bash
-npx cypress run --headed
+npm test --headed
 ```
-
 
 For more details on writing and running Cypress tests, refer to the official [Cypress documentation](https://docs.cypress.io).
 
 ---
 
-Made with ❤️ by [Walmyr](https://walmyr.dev).
+Made with ❤️ by [Walmyr](https://walmyr.dev). \
 Tests by Bruno Figueiredo
-
-<div style="text-align: center">⁂</div>
-
-[^1]: https://pplx-res.cloudinary.com/image/upload/v1742568908/user_uploads/VrYjtGtFTuPLZXf/image.jpg
-
