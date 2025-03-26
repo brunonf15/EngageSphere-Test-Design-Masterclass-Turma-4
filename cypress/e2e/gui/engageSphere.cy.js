@@ -128,4 +128,14 @@ describe('EngageSphere - Customer List UI', () => {
     cy.contains('th', 'Number of employees').should('not.be.visible');
     cy.contains('th', 'Size').should('not.be.visible');
   });
+  
+  it('Bug - Edit name bloquado apos filtro não retornar dados', () => {
+    // Arrange
+    cy.get('[data-testid="size-filter"]').as('sizeFilter').select('Very Large Enterprise');
+    cy.get('[data-testid="industry-filter"]').as('sizeFilter').select('HR');
+    // Act
+    cy.get('[data-testid="name"]').type('Joe');
+    // Assert
+    cy.contains('h2', 'Hi Joe').should('be.visible');
+  });
 });
